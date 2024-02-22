@@ -1,0 +1,210 @@
+1. Create indexDemo collection with 10 records
+
+db.indexDemo.insert({name:'Subha',email:'subha@gmail.com',age:23,ssn:123456789,interest:['playing','coding']})
+
+db.indexDemo.insert({name:'sree',email:'sree@gmail.com',age:22,ssn:111222333,interest:['playing','singing']})
+
+db.indexDemo.insert({name:'mona',email:'mona@gmail.com',age:13,ssn:222333444,interest:['dancing','gaming']})
+
+db.indexDemo.insert({name:'Lisha',email:'lisha@gmail.com',age:20,ssn:333444555,interest:['singing','dancing']})
+
+db.indexDemo.insert({name:'baveesh',email:'baveesh@gmail.com',age:18,ssn:444555666,interest:['playing','watching movies','singing']})
+
+db.indexDemo.insert({name:'banu',email:'banu@gmail.com',age:15,ssn:555666777,interest:['singing','dancing','coding']})
+
+db.indexDemo.insert({name:'Mirsha',email:'mirsha@gmail.com',age:8,ssn:666777888,interest:['playing','coding','watching series']})
+
+db.indexDemo.insert({name:'muthu',email:'muthu@gmail.com',age:29,ssn:777888999,interest:['playing','cooking']})
+
+db.indexDemo.insert({name:'basil',email:'basil@gmail.com',age:27,ssn:888999000,interest:['singing','cricket']})
+
+db.indexDemo.insert({name:'jho',email:'jho@gmail.com',age:18,ssn:999888777,interest:['playing','dancing','music']})
+
+2. To get all the indices
+
+db.indexDemo.getIndexes();
+
+3. Get the count of all records
+
+db.indexDemo.count();
+
+// executionStatus provides the status of execution
+	>> db.indexDemo.explain("executionStats").find({name:'Subha'});
+4. Create index
+
+db.indexDemo.createIndex({"name":1});
+
+1--> searches name in ascending order
+
+5. To create compound index
+  db.indexDemo.createIndex({"name":1,"email":1});
+
+6. Creates index and avoids duplicate number
+  db.indexDemo.createIndex({"ssn":1},{unique:true});
+	>> even if the column with the index is not passed, it gets added into the record with null value
+	it considers null as a value, so again the same record without ssn cannot be added
+
+7. Inorder to avoid taking null  as a value
+	db.indexDemo.createIndex({"ssn":1},{unique:true,sparse:true});
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aggregations
+
+RDBMS	mongo
+
+select	$project
+where	$match
+limit	$limit
+groupby	$group
+orderby	$sort
+sum	$sum
+join	$lookup
+
+
+Pipeline ---> output of some query is given as input of another query
+
+1. Filter data based in section A in Student record
+	>> db.Student.aggregate( [ { $match:{"Section":"A" } } ] )
+
+2. Find all the records where section is A and marks > 80
+	>> db.Student.aggregate( [ 
+			 { $match: 		
+				{ $and:[ {"Section":"A" },{Marks :{"$gt":80}}  ] }
+			 }
+			] )
+
+3. Display only stud name, section and marks ( 1 means display)
+	>> db.Student.aggregate( [ 
+			 { 
+			   $project:{StudentName:1,Marks:1}
+			 }
+			] )
+
+4. we want to find out StudentName,Section and Marks from Student Collection where Section is 'A'
+
+	>> db.Student.aggregate( [ 
+			 { $match :{"Section":"A"} },
+			 { $project:{StudentName:1,Marks:1} }
+			] )
+
+5. Get only details with student name: vijay
+	// unwind will take also the values as array and iterate those number of times and will return those number of result
+
+	>> db.Student.aggregate( [ 
+			 { $match :{"StudentName":"Vijay"} },
+			 { "$unwind" : "$Subject" },
+			 { $project:{StudentName:1,Marks:1,Section:1} }
+			] )
+
+6. Find total marks grouped by section
+
+	>> db.Student.aggregate([ 
+			 { "$group" :
+				{"_id": { "section" : "$Section" },
+			 	 "totalmarks" : {"$sum" : "$Marks"} 
+				}
+			 }
+			] )
+
+
+
+7. Get total marks only for section A
+
+	>> db.Student.aggregate([ 
+			 { $match :{"Section":"A"} },
+			 { "$group" :
+				{"_id": { "section" : "$Section" },
+			 	 "totalmarks" : {"$sum" : "$Marks"} 
+				}
+			 }
+			] )
+
+8. Get the count of students in each section and total marks and average marks
+
+	>> db.Student.aggregate([ 
+			 { "$group" :
+				{"_id": { "section" : "$Section" },
+				 "Count" : { "$sum" : 1 },
+			 	 "totalmarks" : {"$sum" : "$Marks"},
+				 "Average" : {"$avg" : "$Marks"}
+				}
+			 }
+			] )
+
+9. Rename the column names ( section to section name and total marks to total)
+
+	>> db.Student.aggregate([ 
+			 { "$group" :
+				{"_id": { "section" : "$Section" },
+				 "Count" : { "$sum" : 1 },
+			 	 "totalmarks" : {"$sum" : "$Marks"},
+				 "Average" : {"$avg" : "$Marks"}
+				}
+			 },
+			 { "$project" :
+				{"sectionName" : "$section",
+				 "total" : "$totalmarks"}
+			 }
+			] )
+
+10. If we want to  sort the result in descending order by SectionName
+	
+	db.Student.aggregate ([
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         },
+         "Count":{ "$sum" : 1},
+         "Average" : {"$avg" : "$Marks"}
+      }
+   },
+   {
+       "$project" : 
+       {
+           "SectionName" : "$_id.Section",
+           "Total" : "$TotalMarks"
+       }
+   },
+   {
+       "$sort":{"SectionName":-1}
+   }
+])
+
+
+
+
+----------------------------------------------------------------------------------------
+
+1. Create new collection unwind demo
+	>> db.createCollection("unwindDemo");
+
+2. Add the record
+	>> db.unwindDemo.insert({
+ 			title : "this is my title" ,
+ 			author : "bob" ,
+			posted : new Date () ,
+ 			pageViews : 5 ,
+ 			tags : [ "fun" , "good" , "fun" ] ,
+ 			comments : [
+           		  { author :"joe" , text : "this is cool" } ,
+            		  { author :"sam" , text : "this is bad" }
+ 			],
+ 			other : { foo : 5 }
+			});
+
+3. Apply unwind in tags
+
+// _id:0 //0 means , that column will not be displayed
+	>> db.unwindDemo.aggregate( [ 
+			 { "$unwind" : "$tags" },
+			 { $project:{author:1,_id:0} }
+			] )
+

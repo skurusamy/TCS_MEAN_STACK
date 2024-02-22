@@ -1,0 +1,3 @@
+create a sample express project
+install mongodb dependency
+    npm i mongodb --save
