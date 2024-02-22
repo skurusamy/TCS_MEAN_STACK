@@ -1,0 +1,14 @@
+text script ---> typescriptlang.org
+It is developed my Microsoft
+And we need a compiler "node" to compile ts.
+
+To install typescriptlang
+    npm install -g typescript
+
+>> tsc--> type script compiler... needed for performing necessary transform (converts ts to ts)
+
+babeljs.io/repl
+
+
+>> npm install -g ts-node // to install ts-node which can directly execute ts file
+

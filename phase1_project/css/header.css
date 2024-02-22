@@ -1,0 +1,24 @@
+#sparkle,#menu{
+    position: relative;
+    left: 5%;
+}
+#sparkle{
+    font-size: 60;
+    font-weight: 600;
+    
+}
+.header-container{
+    background-color: gray;
+    position: fixed;
+    top: 0%;
+    left:0%;  
+    font-style: bold;
+    width: 100%;
+    z-index: 1;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;  
+}
+#icon-img{
+    width: 100px;
+    height: 100px;
+}
+

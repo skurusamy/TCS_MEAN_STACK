@@ -1,0 +1,24 @@
+> bootstarp --> css available in the cloud.
+
+> offers multiple style sheet that  works accross multiple devices 
+
+> getbootstrap.com  ----> to get variety of tools. 
+
+> Boostrap works for 12 column layout (i.e bootstrap divides browser into 12 columns)
+
+Naming Convention:
+------------------
+    1. sm ---> small screen devices
+    2. md ---> medium screen devices
+    3. xl ---> Extra large desktop screen
+    4. lg ---> large device.
+
+col-sm | col-lg | col-xl ===> the way to represent.
+
+Boostrap have 2 types of layout 
+    1. Fixed Layout   => all elements will be wrapped in a container with the proper alignment 
+                      => It will always be a certain width, and when we resize pur browser it will not adjust
+    2. Fluid Layout   => takes complete space of the application
+
+<meta> tag is important.... has name="viewport" content="width=device-width // takes complete width of the device used,initial-scale = 1"[zoom=100%]
+

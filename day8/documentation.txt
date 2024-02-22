@@ -1,0 +1,156 @@
+In javascript----> 1. library (50+ functional libraries) // can only support when we have smaller application Eg. traditional method of making coffee
+                   2. Frame work // Eg. making coffee in coffe maker
+
+Angular ----> angular.io
+>> Designed to acheive single page application.
+>> Its component centric application.
+>> Uses Framework
+
+>> core language is Type script
+
+Type script ---Tsc/Babel--- javascript (tsc/ Babel is a transpiler)
+For Bundling, it uses a tool name called webpack //  webpack.js.org
+
+
+Create angulartraining folder in documents folder
+Open cli.angular.io
+    >> execute 4 commands
+    
+
+In angular  project
+	>> package.json contains all dependencies, it also Shows the version of angular
+	>>node modules ---> all dependencies in package.json get installed here that can be used for the application
+	>> in index.html <meta....> this is to display in all devices.
+			<app-root> has app-component // which is the main component. 
+
+
+Angular is a component centric. It has 3 things
+	1. Class
+	2. Template 
+	3. CSS
+
+// data is provided in the class and is represented in html
+Template --> has UI part (HTML) 
+Class ---> has data 
+CSS --> Style sheet
+
+
+In module.ts
+	declare tag ----> have to declare all the components which should be used by other components
+	bootstrap[] ----> if you want any component to be displayed in browser it should be declared under bootstrap
+
+
+To generate new Component
+	ng g c component_name
+	 g generate
+	c component 
+
+
+5 important aspect
+1. Component
+2. Directive 	---> any name that starts with ng-* is considered as directive
+	 	---> Ready made tags designed for manipulating the DOM (eg ngIf)
+3. Service 
+4. Router
+5. Pipes
+
+---------------------------------------------------------------------------------------
+
+Service are common data provider to the class... which in turn is provided to the template
+
+
+  {{a}}  <---- a=b  <---  b =10
+Template <--- Class <--- Service <---  REST API //One service can give data to class
+
+1) Create new folder under app called "Shared" which will have all shared service file
+	@injectable will get added into the caller class dependency
+
+2) Put 'Userdata' (the service name) in providers[] of app.module.ts
+
+3) Use it in caller class
+
+Binding
+-------
+1. Property binding [] (from class to template)
+2. Event binding  () (class <--- template)
+3. Two way binding ([])   ( class <--> template)
+4. Class binding
+5. Style binding 
+
+-----------------------------------------------------------------------------------------
+
+Control ---> form elements like textbox, radio button (whichever gives input)
+Control group --> group of control elements
+
+NgModel must be used to treat it as a control
+
+------------------------------------------------------------------------
+Forms
+1. Template driven
+2. Data Driven
+
+Routing
+********
+ Create following components
+1. Products
+2. Categories
+3. product details
+4. Landing page
+5. Payment Profile 
+Create new file under shared folder
+Routing.module.ts
+
+In app.module.ts "In import section" import MyRouting
+
+------------------------------------------------------------------------------------------
+HTTP services
+
+1. Open firebase.google.com ---> go to console
+2. Create data base -->disable google assistant..-->create project.
+3. Open realtime database--> and take url
+
+https://tcs-practice-a35c2.firebaseio.com/
+
+>>>> Add new dependency in app.module.ts
+	import {HttpClientModule} from '@angular/common/http' and in imports add HttpClientModule
+>>>>>> Go to service folder
+	import {HttpClient} from '@angular/common/http';
+	inside construct create a variable--> private http:HttpClient
+	
+
+
+Callback 
+
+Promise ---> designed to avoid callback, this will be called immediately.. using resolve or reject
+
+Observables ---> a better way or alternative for promise eg. reactivex.io ---> this library uses observer pattern, iterator patter and functional programming
+	---> observable will be called only we subscribe
+	
+
+Promise is eager, observable is lazy
+Promise is always asynchronous but observable can be sync or async
+Promise can provide single value but observable can have multiple values
+
+In angular, observables are used.
+
+------>Debugging in angular
+
+https://augury.rangle.io ---> install in chrome
+----> deploy in real production
+
+Type ng build --> dist file will be created and it should be used for deploying ( the size of dust file will be heavy to deploy) in order to reduce the size type
+--> ng build --prod
+
+Poly fills file is also created---> the code created by using build will be compatible across all the browsers (I.e make sure the browsers compatibility)
+
+
+---> JIT (just in time compiler) used when ng build without --prod
+---> AOT ( by default compiler by angular 10) 
+
+Type ----> npm i http-server -g   >>>> in production folder
+ 	-> http-server
+
+
+
+
+
