@@ -1,0 +1,14 @@
+post man ---> a typical web client for testing the api
+
+>> npm init -y
+>> npm i express underscore body-parser --save // some dependency to be used
+
+
+template --> component class --> service ---> firebase ( rest URL)
+                    in realtime service ---> Middleware (get,post,put,delete) ---> Firebase(rest URL)
+                                Eg of Middleware is express   and In mean stack the db used is MongoDB
+And finally the complete application is deployed in AWS
+
+
+Ejs----> used to display dynamic data in html format
+    >> npm i ejs --save
