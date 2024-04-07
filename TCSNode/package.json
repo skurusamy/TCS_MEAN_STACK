@@ -1,0 +1,23 @@
+{
+  "name": "TCSNode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "runapp": "node welcome.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^3.1.5",
+    "jquery": "^3.1.0",
+    "node-persist": "0.0.6",
+    "underscore": "^1.11.0",
+    "yargs": "^3.15.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0"
+  }
+}

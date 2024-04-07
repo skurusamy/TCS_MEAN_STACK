@@ -1,0 +1,57 @@
+#header-content{
+    background-color: rgb(78, 78, 80);
+    width:100%;
+    color: white;
+    font-weight: 500;
+   
+}
+#navbar-content{
+    margin-left: 8%;
+    padding: 10px 40px;
+}
+#navbar-content a{
+    text-decoration: none;
+    color: lavender;
+}
+#main-topic{
+    color: rgb(190, 190, 190);
+}
+#navbar-content a:hover{
+    text-decoration: none;
+    background-color: white;
+    color: black;
+}
+#leftpanel{
+    float: left;
+    width:22%;
+    margin-left: 60px;
+    margin-top: 60px;
+}
+#leftpanel a{
+    text-decoration: none;
+    color: black;
+}
+#leftpanel #topic{
+    background-color: rgb(78, 78, 80);
+    color: white;
+
+}
+#leftpanel li:hover{
+    background-color: rgb(125, 125, 128);
+    color: white;
+}
+#rightpanel{
+    float: right;
+    width:60%;
+    margin: 60px;
+    
+}
+#wrap{
+    margin-bottom: 500px;
+}
+#reg-table{
+    margin-right:100px;
+}
+#search{
+    margin-right: 10%;
+}
