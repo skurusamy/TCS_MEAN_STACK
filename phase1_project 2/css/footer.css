@@ -1,0 +1,21 @@
+.footer-container td{
+    position: relative;
+    left: 12%;
+    padding: 10px 12px;
+    color: grey;
+}
+.footer-container .fa{
+    color: white;
+    padding: 10px;
+    position: relative;
+    left: 12%;
+}
+.footer-container a{
+    text-decoration: none;
+    color: grey;
+}
+.footer-container{
+    background-color:black;
+    
+    clear: both;
+}
