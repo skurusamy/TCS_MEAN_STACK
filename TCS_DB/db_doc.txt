@@ -1,0 +1,13 @@
+Express --> Db (sequelize (ORM) and sqlite )
+//To use sqlite
+    >> https://www.npmjs.com/package/sqlite3
+
+// to insert all dependency
+    npm i body-parser underscore  express sequelize sqlite3 --save
+Steps with this application:
+
+    1. create package.json using npm init -y
+    2. Insert all dependency using npm i dependency --save
+    3. create server.js file
+    4. create 2 more folders data and models.
+        >> models defines the schema

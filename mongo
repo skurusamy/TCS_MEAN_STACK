@@ -1,0 +1,440 @@
+db.Student.insert({StudentName : "Vijay",Section : "A",Marks:70,Subject:["Hindi","English","Math"]})
+db.Student.insert({StudentName : "Gaurav",Section : "A",Marks:90,Subject:["English"]})
+db.Student.insert({StudentName : "Ajay",Section : "A",Marks:70,Subject:["Math"]})
+db.Student.insert({StudentName : "Ankur",Section : "B",Marks:10,Subject:["Hindi"]})
+db.Student.insert({StudentName : "Sunil",Section : "B",Marks:70,Subject:["Math"]})
+db.Student.insert({StudentName : "Preeti",Section : "C",Marks:80,Subject:["Hindi","English"]})
+db.Student.insert({StudentName : "Anuj",Section : "C",Marks:50,Subject:["English"]})
+db.Student.insert({StudentName : "Palka",Section : "D",Marks:40,Subject:["Math"]})
+db.Student.insert({StudentName : "Soniya",Section : "D",Marks:20,Subject:["English","Math"]})
+
+
+
+------------------------
+
+Pipeline Concept
+In UNIX command, shell pipeline means the possibility to execute an operation on some input and use the output as the input for the next command and so on. MongoDB also supports same concept in aggregation framework. There is a set of possible stages and each of those is taken as a set of documents as an input and produces a resulting set of documents (or the final resulting JSON document at the end of the pipeline). This can then in turn be used for the next stage and so on.
+
+Following are the possible stages in aggregation framework -
+
+$project - Used to select some specific fields from a collection.
+
+$match - This is a filtering operation and thus this can reduce the amount of documents that are given as input to the next stage.
+
+$group - This does the actual aggregation.
+
+$sort - Sorts the documents.
+
+$skip - With this, it is possible to skip forward in the list of documents for a given amount of documents.
+
+$limit - This limits the amount of documents to look at, by the given number starting from the current positions.
+
+$unwind - This is used to unwind document that are using arrays. When using an array, the data is kind of pre-joined and this operation will be undone with this to have individual documents again. Thus with this stage we will increase the amount of documents for the next stage.
+
+--------------
+
+$match
+$match is similar to Where in SQL. In SQL we use Where to filter the data and same is here.If we need to pass only a subset of our data in next stage of Aggregation Pipeline then we use $match.$match filters the data and pass the matching data to the next stage of Pipeline.
+
+Example 1 : we want to filter data based on Section A in Student Collection then we will use $match as below
+
+
+db.Student.aggregate 
+(
+ [
+  {
+     "$match":
+     {
+        "Section":"A"
+     }
+  }
+ ]
+)
+-----------
+
+Example 2 : we  want to find out all the records where Section is A and Marks is greater then 80
+
+db.Student.aggregate (
+[
+   {
+       $match:
+       {
+           $and:[{Section:'A'},{Marks: {"$gt" :80}}]
+       }
+    }
+ ]
+)
+----------------
+
+
+$project : 
+We can compare this clause with SELECT in SQL. We can select certain fields, rename Fields from documents though $project. In short $project reshape the documents by adding/removing or renaming the documents for the next stage of pipeline. In $project we use 1 or true if we want to include the Field and 0 or false if we want to exclude a particular field.
+
+Example 1 : In the below query we want only StudentName,Section and Marks from student collection then we will use the below query
+
+db.Student.aggregate 
+(
+ [
+  {
+       "$project":{StudentName : 1,Section:1,Marks:1}
+  }
+ ]
+)
+------
+Example 2 : Now if we want to find out StudentName,Section and Marks from Student Collection where Section is 'A' than we will use $project and $match both
+
+db.Student.aggregate 
+(
+ [
+  {
+     "$match":
+     {
+        "Section":"A"
+     }
+  },
+  {
+       "$project":
+     {
+         StudentName : 1,Section:1,Marks:1
+     }
+  }
+ ]
+)
+
+----------------
+
+NOTE : _id will be visible by default, if we don't want the _id field in result then we need to remove it explicitly as below
+
+
+"$project":{StudentName : 1,Section:1,Marks:1,_id:0}
+
+----------------
+
+
+$unwind 
+$unwind works on the the array field inside the documents. $unwind creates a new document for each array element in an array.$unwind output is a new document of each entry of an array inside a document.we use $unwind to flattens the data.
+
+Example 1 : Suppose we want to apply $unwind on a document where name is Vijay.In this document we have an array field named Subject which contains three subjects named Hindi,English and Math. Let's see what $unwind will do with this document
+
+
+db.Student.aggregate 
+(
+ [
+  {
+     "$match":
+     {
+        "StudentName":"Vijay"
+     }
+  },
+  {
+       "$unwind":"$Subject"
+  }
+ ]
+)
+Result
+
+Example 2 :   If we want to select only StudentName,Section,Marks,Subject then we can use $project along with $match and $unwind as below
+
+
+db.Student.aggregate 
+(
+ [
+  {
+     "$match":
+       {
+        "StudentName":"Vijay"
+       }
+  },
+  {
+       "$unwind":"$Subject"
+  },
+  {
+       "$project":
+        {
+         StudentName : 1,Section:1,Marks:1,Subject:1
+        }
+  }
+ ]
+)
+
+-------------------
+
+{
+ title : "this is my title" ,
+ author : "bob" ,
+ posted : new Date () ,
+ pageViews : 5 ,
+ tags : [ "fun" , "good" , "fun" ] ,
+ comments : [
+             { author :"joe" , text : "this is cool" } ,
+             { author :"sam" , text : "this is bad" }
+ ],
+ other : { foo : 5 }
+}
+Notice how tags is actually an array of 3 items, in this case being "fun", "good" and "fun".
+
+What $unwind does is allow you to peel off a document for each element and returns that resulting document. To think of this in a classical approach, it would be the equivilent of "for each item in the tags array, return a document with only that item".
+
+Thus, the result of running the following:
+
+db.article.aggregate(
+    { $project : {
+        author : 1 ,
+        title : 1 ,
+        tags : 1
+    }},
+    { $unwind : "$tags" }
+);
+would return the following documents:
+
+{
+     "result" : [
+             {
+                     "_id" : ObjectId("4e6e4ef557b77501a49233f6"),
+                     "title" : "this is my title",
+                     "author" : "bob",
+                     "tags" : "fun"
+             },
+             {
+                     "_id" : ObjectId("4e6e4ef557b77501a49233f6"),
+                     "title" : "this is my title",
+                     "author" : "bob",
+                     "tags" : "good"
+             },
+             {
+                     "_id" : ObjectId("4e6e4ef557b77501a49233f6"),
+                     "title" : "this is my title",
+                     "author" : "bob",
+                     "tags" : "fun"
+             }
+     ],
+     "OK" : 1
+}
+
+---------------------------
+
+
+$group 
+MongoDB use $group to group the documents by some specified expression.$group is similar to Group clause in SQL. Group in SQL is not possible without any Aggregate Function and the same is here. We can not group in MongoDB without Aggregate Functions. let's understand with an example
+
+Example 1 : Suppose we want to find out Total Marks group by Section then we will use $group as below
+
+
+db.Student.aggregate ([
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         }
+      }
+   }
+])
+In this query _id Field is mandatory. In _id we pass the field on which we want to group the documents.This will give us below result
+
+Result
+
+Example 2 : If we want to fetch Total Marks for only Section 'A' then we can pass a $match also. 
+
+
+db.Student.aggregate ([
+   {
+       "$match":{Section :'A'}
+   },
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         }
+      }
+   }
+])
+This will Sum the Total Marks of Section 'A' only.
+
+Result
+
+Example 3 :
+
+Suppose we want to fetch the count of students in each section and Total marks and average marks as well 
+
+
+db.Student.aggregate ([
+  
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         },
+         "Count":{ "$sum" : 1},
+         "Average" : {"$avg" : "$Marks"}
+      }
+   }
+])
+Result
+
+Example 4 : If we want to rename the column Names in above query(Section to SectionName and TotalMarls to Total)  then we can use $project along with $group as below
+
+
+db.Student.aggregate ([
+  
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         },
+         "Count":{ "$sum" : 1},
+         "Average" : {"$avg" : "$Marks"}
+      }
+   },
+   {
+       "$project" : 
+       {
+           "SectionName" : "$_id.Section",
+           "Total" : "$TotalMarks"
+       }
+   }
+])
+
+
+----------------------------------------
+
+
+$sort 
+$sort is similar to  orderby clause in SQL server. In MongoDB we have $sort for this. $sort will sort the documents in either ascending or descending order as below. MongoDB uses 1 for ascending and -1 for descending
+
+Example 1 : If we want to  sort the result in descending order by SectionName then we can use $sort 
+
+   Shrink    
+db.Student.aggregate ([
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         },
+         "Count":{ "$sum" : 1},
+         "Average" : {"$avg" : "$Marks"}
+      }
+   },
+   {
+       "$project" : 
+       {
+           "SectionName" : "$_id.Section",
+           "Total" : "$TotalMarks"
+       }
+   },
+   {
+       "$sort":{"SectionName":-1}
+   }
+])
+
+-----------------------
+
+
+$limit 
+$limit operator use to pass n documents to next pipe line stage where n is the limit.n is the number of documents
+
+Example 1 : If we want to sort the documents as in above query and we need to pass only 2 documents to the next stage of pipeline then we use $limit .
+
+   Shrink    
+db.Student.aggregate ([
+  
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         },
+         "Count":{ "$sum" : 1},
+         "Average" : {"$avg" : "$Marks"}
+      }
+   },
+   {
+       "$project" : 
+       {
+           "SectionName" : "$_id.Section",
+           "Total" : "$TotalMarks"
+       }
+   },
+   {
+       "$sort":{"SectionName":-1}
+   },
+   {
+       "$limit" : 2
+   }
+])
+Result
+
+$skip 
+$skip is use to skip first n documents and remaining will be passed in next pipeline.n is the number of documents which we want to skip
+
+Example 1 :  In the above example if we want to skip first 1 document and then we want to pass the next 2 documents to the next stage of pipeline then we  will use the below query
+
+   Shrink    
+db.Student.aggregate ([
+  
+   {
+      "$group":
+      {
+         "_id":
+         {
+            "Section" : "$Section"
+         },
+         "TotalMarks":
+         {
+            "$sum": "$Marks"
+         },
+         "Count":{ "$sum" : 1},
+         "Average" : {"$avg" : "$Marks"}
+      }
+   },
+   {
+       "$project" : 
+       {
+           "SectionName" : "$_id.Section",
+           "Total" : "$TotalMarks"
+       }
+   },
+   {
+       "$sort":{"SectionName":-1}
+   },
+   {
+       "$skip" : 1
+   },
+   {
+       "$limit" : 2
+   }
+])

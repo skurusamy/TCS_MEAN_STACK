@@ -1,0 +1,6 @@
+to create weather application
+    >> npm init -y
+    >> npm i request --save
+
+    >> create a new file app.js
+    

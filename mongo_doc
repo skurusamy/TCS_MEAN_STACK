@@ -1,0 +1,189 @@
+//Displays all database
+Show dbs; 
+
+// to create database
+
+Use database_name;
+
+// to create collection
+
+db.createCollection("CollectionName");
+
+//to check which db is currently use
+db;
+
+//to display all collections
+
+Show collections;
+
+// display all the record in a particular collection
+db.students.find();
+
+// to insert into the collection
+db.students.insert({name:'subha',email:'subha@gmail.com'});
+
+//insert multiple records at a time
+
+>> var myUsers=[
+{name:'mona',email:'mona@gmail.com'},
+{name:'banu',email:'banu@gmail.com'},
+{name:'basil',email:'basil@gmail.com'}
+]
+>> db.students.insert(myUsers);
+
+// overwrite _id, if you don't want to create a auto generated one
+
+ db.students.insert({name:'sree',email:'sree@gmail.com',_id:1});
+
+// to find specific record
+
+ >> db.students.find({name:'subha'});
+// to update particular record
+ >> db.students.update({name:'amar},{$set:{email:'subha@mail.in'}});
+// ignorer to update multiple records at a time
+  >> db.stidents.update({name:'amar},{$set:{email:'subha@mail.in'}},{multi:true});
+
+// deleting a record
+  >> db.students.remove({name:'sree'})
+
+// fetch only 2 records
+  >> db.students.find().limit(2);
+// sorting the records
+  >> db.students.find().sort({name:1})   // 1 is ascending order; -1 is descending order
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// example
+
+Exercise
+We need to start out by inserting some data which we can work with.
+•   Paste the following into your terminal to create a petshop with some pets in it 
+
+use petshop
+
+db.pets.insert({name: "Mikey", species: "Gerbil"})
+
+db.pets.insert({name: "Davey Bungooligan", species: "Piranha"})
+
+db.pets.insert({name: "Suzy B", species: "Cat"})
+
+db.pets.insert({name: "Mikey", species: "Hotdog"})
+
+db.pets.insert({name: "Terrence", species: "Sausagedog"})
+
+db.pets.insert({name: "Philomena Jones", species: "Cat"})
+
+•   Add another piranha, and a naked mole rat called Henry.
+         >> db.pets.insert({name: "Henry", species: "Piranha"})
+
+•   Use find to list all the pets. Find the ID of Mikey the Gerbil.
+         >>db.pets.find();
+	>> id of mickey = ObjectId("5fa03774e7289cc4974b41cc")
+
+•   Use find to find Mikey by id.
+	>> db.pets.find({_id:ObjectId("5fa03774e7289cc4974b41cc")})
+
+•   Use find to find all the gerbils.
+	>>  db.pets.find({species:'Gerbil'});
+
+•   Find all the creatures named Mikey.
+	>> db.pets.find({name:"Mikey"});
+
+•   Find all the creatures named Mikey who are gerbils.
+	>> db.pets.find({name:"Mikey",species:"Gerbil"});
+
+•   Find all the creatures with the string "dog" in their species.
+        >> db.pets.find({ species: /dog/ })
+​
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage of embedded record
+
+db.students.insert({
+
+regno:1234,
+name: 'admin',
+course: {
+	course_name:'management',
+	duration: '3 years'
+},
+address:{
+	city:'newark',
+	country:'USA'
+}
+
+}
+)
+
+
+
+>>
+
+db.students.insert({
+regno:1235,
+name: 'jho',
+course: {
+	course_name:'dbms',
+	duration: '1 year'
+	},
+address:{
+	city:'newark',
+	country:'USA'
+	}
+})
+>>
+
+db.students.insert({
+regno:1236,
+name: 'john',
+course: {
+	course_name:'ML',
+	duration: '2 years'
+	},
+address:{
+	city:'Harrison',
+	country:'USA'
+	}
+}
+
+)
+
+//get records based on course name
+
+db.students.find({
+'address.city':'newark'
+})
+
+// get records based on region less than 123
+
+db.students.find({regno :{$gt:123} })
+	>> &gt-->greater than
+	>> &lt--> less than
+	>> &gte--> greater than equal
+	>> &ne---> not equal
+
+// get records only if it matches with the elements in the array
+
+db.students.find({regno:{$in :[1234,1235] }})
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~``````````~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// create new collection name called skills and add the below records
+
+{ "Name" : "Balaji", "skills" : [ "Dancing", "Cooking", "Singing" ] }
+	>> db.skills.insert({ "Name" : "Balaji", "skills" : [ "Dancing", "Cooking", "Singing" ] })
+{ "Name" : "Ramesh", "skills" : [ "Cooking", "Singing" ] }
+	>> db.skills.insert({"Name" : "Ramesh", "skills" : [ "Cooking", "Singing" ]})
+{ "Name" : "Suresh", "skills" : [ "Dancing", "Singing" ] }
+ 	>> db.skills.insert({ "Name" : "Suresh", "skills" : [ "Dancing", "Singing" ] })
+
+// display the name of people who knows cooking or singing
+	>> db.skills.find({skills:{$in:['Cooking','Singing']}});
+//display the name of people who knows cooking and singing
+	>>  db.skills.find({skills:{$all:['Cooking','Singing']}});
+
+
