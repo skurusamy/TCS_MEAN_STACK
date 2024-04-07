@@ -1,0 +1,22 @@
+Project Name : Chatlog
+
+Objective : 
+	To develop an online chat portal and store the messages in the database
+
+Technology Used :
+	Visual Studio Code
+	Node Js
+	Express JS
+	socket.io
+	Mongo Db
+
+Description:
+	To create a simple chat application. The front page is to login with and name and the room that the user wish to join. 
+	All users in the single room name will be able to communicate with each other. 
+	The users in the same room  will be notified as soon as the user joins and leaves the room.	
+	The connection between different clients are made through socket.io
+	Finally the user details, room name and the chat are stored in the mongo db.
+
+npm run dev --> command to run the chat app
+The server runs in the port 3000
+
