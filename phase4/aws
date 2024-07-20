@@ -1,0 +1,63 @@
+AWS
+Link: redirected from lab
+
+1. Launch a virtual machine EC2
+2. Ubuntu server 18.04 
+3. Choose Instance type- Do nothing --> next 
+4. Configure instance- Do nothing --> next
+5. Add Storage- Do nothing ---> next
+6. Add tag --> key: Name Value:tcs_ubuntu
+7. Configure security group - >
+	type-> All traffic , source-anywhere
+ >> Review and Launch - Launch 
+ >> Choose an existing key pair --> create a new key pair
+	>> key_pair name: any name(tcsubuntu)
+ >> Download key pair
+ >> Launch Instances
+
+1. View Instance
+2. Select and connect --> SSH client tab
+
+Separately open putty gen ---> load file--> thsUbuntu.pem(the one downloaded)
+			  ---> save public key and private key 
+Open putty:
+	IP: public IP address from aws instance port 22
+	left tab ssh--- auth .. browse stored private key 
+        Click ok...
+	login username: ubuntu
+
+Mac:
+	 sudo ssh -i tcsubuntu.pem ubuntu@publicip
+	eg: sudo ssh -i "tcsubuntu.pem" ubuntu@ec2-54-242-172-92.compute-1.amazonaws.com
+
+Ubuntu os can be accessed from your machine
+ you can use everything -- working with docker
+
+	eg. sudo apt-get update
+	>> sudo apt-get install docker.io
+	--> start working in docker
+	 >> sudo docker run -d -p 3600:80 --name myNginix nginix
+
+To use git hub
+
+git clone githublink
+
+Create docker using below code
+
+# Base image
+FROM node:10
+# Maintainer name
+LABEL maintainer="amar@amar.io"
+# Copying angular folder from local directory to Educative directory
+COPY angular /usr/local/educative/angular
+# Installing Angular cli and node modules in angular directory
+RUN     npm install -g @angular/cli &&\
+        cd /usr/local/educative/angular &&\
+        npm i
+EXPOSE 3000
+......```````````
+
+Workdir server.js
+Copy package.json
+Run node server.js
+Expose 8080

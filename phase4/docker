@@ -1,0 +1,70 @@
+Docker
+	Known to be a containerized platform, which has all libraries, related softwares files--> and make it available for all of us. 
+
+	Docker is mainly used In deployment area. 
+
+Docker
+	>> images --> softwares
+	>> Container --> running instances of a image
+
+Open hub.docker.com --> sign up
+	>> docker id: subhakuru
+	>> password: SubhaLisha@26
+
+Go to terminal and type. >> docker login 
+
+>> sudo docker images --> gives by default images
+>> sudo docker ps ----> gives the containers that are currently available
+>> sudo docker ps -a ---> gives all containers even if they are currently not in use
+>> sudo docker pull hello-world -->downloads the image hello world from the docker
+>> sudo docker run hello-world --> runs the image hello world
+>> history ---> to view the commands typed
+>> sudo docker rmi hello-worlds -f --> removes the image [f is to force delete, rmi --> remove image]
+>> sudo docker rm f7 -f --> to remove the container [f7 is the first two characters of container id]
+
+-----------------------------------------------------------------------------------------
+
+Download jenkins and nginx
+	>> jenkins --> used to create ci cd pipelines 
+	>> nginx --> one of the web Server
+
+>> sudo docker pull jenkins
+>> sudo docker pull nginx
+
+>> sudo docker run -d nginx  // d --> detached mode, will not stop the current command prompt. [this containers runs background
+
+>> sudo docker ps ---> can check if the container is running or not
+>> sudo docker container inspect 9d // to go inside the container [9d is the 2 character of container id] display all details about the container
+
+>> curl http://172.12.0.2:80 --> IP address and port --> this is actually a website
+
+To execute the outside in the browser, we have to use port binding
+	>> sudo docker run -d -p 3600:80 --name subha-nginx nginx
+		3600 --> port you want to listen to
+		:80 ---> is the port where the application is running 
+		subha-nginx --> name that it should run
+		nginx is the actual image name
+	>> get the IP address, from details in the lap.. access column except  port, give port as 3600
+
+------------------------------------------------------------------------------------------
+
+Create our own custom image
+
+	>> should create a new docker file 	
+1. mkdir myImgs
+2. cd myImgs
+3. vi Dockerfile // name should be the same  [Dockerfile]
+	type in Dockerfile the following
+		FROM ubuntu
+		MAINTAINER Subha
+		RUN apt-get update
+		RUN apt-get install git -y
+		RUN apt-get install tree
+		CMD ["echo","welcome to my image"]
+		
+4. sudo docker build . -t image-name:version_num // to run the docker file
+5. sudo docker images // displayes all the images
+6. sudo docker run -d subhakuru/subha-ubuntu:1.2.0 // to run the image
+7. sudo docker run  subhakuru/subha-ubuntu:1.2.0 // will display the echo message
+8. sudo docker push subhakuru/subha-ubuntu // to push image into docker hub
+

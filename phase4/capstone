@@ -1,0 +1,27 @@
+Capstone project
+
+1. UI: Angular + Bootstrap
+2. Database: MongoDB 
+
+
+Backend : Express 
+
+Service --> http --> express(3000/get,post,put,delete)
+
+http://localhost:3000/getuserdetails
+
+
+-----------------------------------------------
+
+Change MongoDB uri
+Run using node server.js in one terminal
+
+ng serve --proxy-config proxy.config.json ---> click y -->
+
+
+Product:
+
+Price:
+Email:
+Quantity:
+

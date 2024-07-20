@@ -1,0 +1,86 @@
+M 
+Service --> is designed to have more clusters internally considered as a container
+
+
+Orch tool
+
+Docker Swarm --> will have 1 master with multiple servants
+
+>> sudo docker info 
+>> sudo docker swarm init --> To make sudo active	
+	--> also creates a cluster, the same terminal will act as master and as a client
+	-> will get a msg as 
+		
+		To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-46zxk0mami6ma40d0vo9p5zs9xhyacrlhz2b2f8y6u2nq7f5ur-baov67g6kakd4fpdto07mskdt 172.31.34.251:2377
+
+Copy the above in worker1, now it will be added as the servent
+
+sudo docker node ls // to check all nodes available
+
+------------------------------------------------------------------------------------------
+
+To deploy nginx into the system
+
+1. Check if any other service is running right now
+	>> sudo docker service ls
+2. Deploy one service to my cluster
+	>> sudo docker service create --replicas 3 -p 80:80 --name web1 nginx
+	// replicas is the  number instance of the particular container
+	// -p for port binding 
+	// web1 is the new service name created
+	// from the pre defined container nginx
+3. To check if the containers are running
+	>> sudo docker ps
+4. To see all the details of the service web1
+	>> sudo docker service inspect web1
+5. To check all the nodes in the service
+	>> sudo docker service ps web1
+6. To check the application 
+	>> curl http://172.31.44.254:80
+
+------------------------------------------------------------------------------------------
+
+To deploy a complete application
+
+1. Create a new service
+	>> sudo docker service create --mode global -p 8003:80 --name Apache2 httpd
+2. To check if the containers are running
+	>> sudo docker ps
+3. To check service details
+	>> sudo docker service ps Apache2
+4. To check if it works
+	>> curl http://172.31.44.254:8003
+5. To connect to more than one clusters  have to create overlay network
+	>> sudo docker network create -d overlay myoverlay
+		-- overlay is the default name
+6. To check if the network is registered
+	>> sudo docker network ls
+7. Deploy the first service 
+	a. Create the service named webapp1
+		>> sudo docker service create --name webapp1 --network myoverlay -p 8001:80 hshar/webapp
+	b. Check if the service is created 
+		>> sudo docker service ls
+8. Deploy the second service mysql
+	a. Create the service
+		>> sudo docker service create --name mysql --network myoverlay -p 3306:3306 hshar/mysql:5.5
+9. To go inside the container 
+	>> sudo docker exec -it containerid bash 
+		-it is interactive
+		container id is the id of the sql service 
+	>> bash command line displays like sql prompt
+
+	a. To go to mysql prompt
+		>> mysql -u root -p //password is edureka
+	b. Work inside sql, show database
+		>> show databases;
+	c. Create database
+		>> create database dockerdb;
+	d. Use database;
+		>> use dockerdb;
+	e. To list out the tables
+		>> show tables;
+
+
+		
