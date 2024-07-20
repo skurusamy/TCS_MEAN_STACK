@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="mystyle.css">
+		<meta charset="ISO-8859-1">
+		<title>Home Page</title>
+	</head>
+	<body>
+		<div id="header">
+			<h1>WELCOME TO TOUR MANAGEMENT SYSTEM</h1>
+		</div>	
+		<div id="content">
+			<h3>OUR TOURING SERVICES</h3>
+			<div>
+			We customize our services to fit 
+			</br>to our client's specific needs - from complete 
+			</br>turnkey show productions
+			</br>including on-side coordination and supervision
+			to argumenting your resources.</br>Save Valuable time and money
+			</br> and hire qualified professionals to assist with your next project.
+			</div>
+		</div>
+		<form id="loginForm" action="LoginController" method="post">
+		<table>
+		<caption><b>Login Form</b></caption>
+		<tr>
+		<td>Login Id:</td>
+		<td><input type="text" id="loginid" name="loginid" required="required"/></td>
+		</tr>
+		<tr>
+		<td>Password:</td>
+		<td><input type="password" id="password" name="password" required="required" min="6"/></td>
+		</tr>
+		<tr>
+		<td>User Type:</td>
+		<td><select id="usertype" name="usertype">
+		<option value ="none" disabled selected>Select one </option>
+		<option value="ADMIN">Admin</option>
+		<option value="MEMBER">Member</option>
+		</select></td>
+		</tr>
+		<tr>
+		<td></td>
+		<td><input type="submit" value="Login"/>
+		<input type="reset" value="Reset"/>
+		</td>
+		</tr>
+		</table>
+		</form>
+		<div id="footer">
+			<table>
+			<tr>
+			<td>Before and during your trip we are always ready to answer any questions you have about our services</td>
+			<td>With 14 million customers per year, we are well prepared to provide you with great service</td>
+			<td>We are constantly working to provide you with the greatedt possible selection of flights from leading airlines</td>
+			</tr>
+			</table>
+		</div>
+	</body>
+</html>
