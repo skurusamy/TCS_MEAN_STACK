@@ -1,0 +1,38 @@
+<div class="container1 header-wrapper" #stickyMenu [class.sticky] = "sticky" style="background-color: #179af8;">  
+        <h1 id="amoga">&#10024;Fashionista</h1>
+        <div id="menu" class="container" style="background-color: #e3f2fd;">
+            <nav class="navbar navbar-expand-sm navbar-light " >
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ">
+                      <a class="nav-link" routerLink="/user-home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ">
+                      <a class="nav-link" routerLink="/user-purchase" >Purchase</a>
+                  </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/view-cart" >View Cart </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/view-wishlist" >View Wish List </a>
+                    </li>
+
+                   <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      My Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" routerLink="/reset-password">Change Password</a>
+                      <a class="dropdown-item" routerLink="/update-address">Update Address</a>
+                      <a class="dropdown-item" routerLink="/update-payment">Update Payment Details</a>
+                      <a class="dropdown-item" routerLink="/home">Logout</a>
+                    </div>
+                </li>
+    
+                  </ul>
+                  <p id=right>Welcome <b>{{name}}!!</b></p>
+                </div>
+            </nav>
+        </div>
+</div>
+

@@ -1,0 +1,71 @@
+<app-user-header></app-user-header>
+<div class="container">
+    <div id="admin-left" class="col-md-4">
+        <app-side-menu ></app-side-menu>
+    </div>
+    <div id="admin-right" class="col-md-8">
+              <div class="card border-info">
+                <div class="card-header">
+                  {{name}}
+                </div>
+                
+                <div class="card-body">
+                  <h4 class="card-title">Residential Information</h4>
+                  <form [formGroup]="updatePaymentForm" > 
+                    <div class="form-group">
+                        <label for="cname">Name on the card<span class="imp">*</span></label>
+                        <input type="text" formControlName="cname" class="form-control">
+                        <div class="alert alert-danger" *ngIf="cname.touched && cname.invalid">
+                            <p *ngIf="cname.errors.required"> Credit card name is mandatory</p>
+                            <p *ngIf="cname.errors.minlength">Credit card name must be more than 2 characters</p>
+                            <p *ngIf="cname.errors.pattern">Credit card name should contain only characters</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card_no">Card Number<span class="imp">*</span></label>
+                        <input type="number" formControlName="card_no" class="form-control">
+                        <div class="alert alert-danger" *ngIf="card_no.touched && card_no.invalid">
+                            <p *ngIf="card_no.errors.required"> Credit card number is mandatory</p>
+                            <p *ngIf="card_no.errors.pattern">Enter a Valid Credit card number</p>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Expiry Date<span class="imp">*</span></label>
+                        <input type="text"  formControlName="date" class="form-control"  placeholder="MM-YYYY">
+                        <div class="alert alert-danger" *ngIf="date.touched && date.invalid">
+                            <p *ngIf="date.errors.required"> Expiration Date is mandatory</p>
+                            <p *ngIf="date.errors.pattern">Enter a Valid Expiry date</p>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ccv">CCV<span class="imp">*</span></label>
+                        <input type="password" formControlName="ccv" class="form-control">
+                        <div class="alert alert-danger" *ngIf="ccv.touched && ccv.invalid">
+                            <p *ngIf="ccv.errors.required"> CCV number is mandatory</p>
+                            <p *ngIf="ccv.errors.pattern">Enter a Valid CCV number</p>  
+                        </div>
+                    </div>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal" (click)=updatePayment()>Update </button>&nbsp;
+                    </form>
+                </div>
+                
+
+
+
+
+                <div ng-If="isSuccess" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Update Payment Details</h5>
+                          
+                        </div>
+                        <div class="modal-body">
+                         Your Payment details has been  Updated!!!!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+</div>

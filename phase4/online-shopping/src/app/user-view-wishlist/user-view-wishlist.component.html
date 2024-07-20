@@ -1,0 +1,52 @@
+<app-user-header></app-user-header>
+<div class="container">
+    <div id="admin-left" class="col-md-4">
+        <app-side-menu ></app-side-menu>
+    </div>
+    <div id="admin-right" class="col-md-8">
+        <table *ngIf="products.length > 0" class="table ">
+            <tbody>
+                Wish List:
+                <tr *ngFor="let product of products">
+                    <div class="card border-info">
+                        <div class="card-header">
+                          {{product.pname}}
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">{{product.pname}}</h5>
+                          <p class="card-text">Brand: {{product.brand}}</p>
+                          <p class="card-text">Category: {{product.category}}</p>
+                          <p class="card-text">Price: {{product.price}}</p>
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="delete(product.pid)">Delete </button>
+                        </div>
+                      </div><br>
+                </tr>
+            </tbody>
+        </table>
+    
+        <div ng-If="isSuccess" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Update </h5>
+                  
+                </div>
+                <div class="modal-body">
+                 Product deleted from wishlist !!
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)=ngOnInit() data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+
+
+    <div *ngIf="products.length === 0" class="alert alert-info" role="info">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Information:</span>
+        The product collection is empty.
+    </div>
+
+</div>

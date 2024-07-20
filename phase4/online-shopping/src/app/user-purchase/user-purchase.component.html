@@ -1,0 +1,59 @@
+<app-user-header></app-user-header>
+<div class="container">
+    <div id="left" >
+        <div id="Categories">
+            <ul class="list-group container">
+                <li class="list-group-item primary" id="topic"><h5>Categories</h5></li>
+                <li class="list-group-item"><button class="btn" (click)="getCategory('ALL')">ALL</button></li>
+                <span *ngFor="let c of categories">
+                    <li class="list-group-item"><button class="btn" (click)="getCategory(c.name)">{{c.name}}</button></li>
+                </span>
+              </ul>
+            </div>
+    </div>
+    <div id="right" >
+        <table *ngIf="products.length > 0" class="table ">
+        <tbody>
+            Products:
+            <tr *ngFor="let product of products">
+                <div class="card border-info">
+                    <div class="card-header">
+                      {{product.category}}
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{product.pname}}</h5>
+                      <p class="card-text">Price:{{product.price}}</p>
+                      <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal" (click)="addToCart(product.pid,product.pname,product.brand,product.category,product.price)">Add to cart &#128722;</button>&nbsp;
+                      <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal" (click)="wishList(product.pid)">Add to Wish List &#10084;</button>
+                    </div>
+                  </div><br>
+            </tr>
+        </tbody>
+    </table>
+    
+
+    <div ng-If="isSuccess" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update </h5>
+              
+            </div>
+            <div class="modal-body">
+             {{msg}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <div *ngIf="products.length === 0" class="alert alert-info" role="info">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Information:</span>
+        The product collection is empty.
+    </div>
+</div>
+</div>
