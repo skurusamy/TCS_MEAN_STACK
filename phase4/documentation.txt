@@ -1,0 +1,105 @@
+Title: Fashionista
+Author: Subhasree Kurusamy
+
+OBJECTIVE:
+	To create a online shopping of fashion items and accessories using MEAN stack and deploying in AWS with the help of Docker.
+
+
+Technologies Used:
+	1. Visual Studio Code
+	2. Angular
+	3. Bootstrap
+	4. Node JS
+	5. MongoDB ( using Mongo Atlas)
+	6. AWS cloud services.
+	7. Github.
+
+Command to Run:
+	FrontEnd: ng serve --proxy-config proxy.config.json 
+	BackEnd: node server.js
+
+General Execution Logic:
+	Request: Front end Angular ----> Service ----> MongoDb
+	Response: MongoDb ----> Service ----> Front end Angular
+	
+Pre-Requirements:
+	1. Proper Validation is done for all form Elements.
+	2. Reactive Form modules are used.
+	3. Pop up messages are displayed to show the status of the current operation.
+	4. The name and Email of the user is maintained throughout the portal using the session 
+
+Description:
+	
+	Login Page:
+		1. It requires email and Password to login successfully.
+		2. This module also contains Creating a New User and Forgot Password 
+	Forgot Password:
+		1. This has a form to enter the mail id.
+		2. Incase of valid mail id, mail is being send to the user with the old password.
+	New User:
+		1. New Users can create a new account to start purchasing by completing all details in the given form.
+	Admin Operations:
+		After successful admin login, the admins is allowed to perform the following operations.
+		1. View Product Details:
+			View all the product details available in the store as a table format.
+		2. Update Product Details:
+			The admin can update the product. i.e The product quantity can be increased or decreased or deleting the entire product.
+		3. Add a new Product:
+			This module allows the admin to add the new product and throws error if the product is already available.
+			Each Product is uniquely identified using the Product id.
+		4. View User Details:
+			The basic information about the users in the store will be loaded as a form in this module.
+		5. Add New User:
+			New User can be added by the admin.
+	User Operation:
+		After proper authentication, the user is allowed to perform the following operations.
+		1. Purchase:
+			All products available in the store will be displayed in the page.
+			The user can add the product to the cart or to the wishlist.
+		2. Viewing Cart:
+			The user can view the products in the cart.
+			The product in the cart can also be updated by increasing the quantity of product or can be deleted. 
+		3. Viewing Wish List:
+			The product available in the particular user's wishlist can be loaded in this page.
+			User can also remove the product from the wishlist .
+		4. Reset Password:
+			User can reset the password, if needed
+		5. Update Address:
+			User can View the old address and updated if needed.
+		6. Update Payment Details:
+			User can update their payment details at any time needed.
+Mongo Scheme:
+	Login:
+		_id :optional
+		email (unique)
+		password
+	Products:
+		_id: optional
+		product id (unique)
+		product name
+		brand
+		category 
+		price
+		quantity
+	Users:
+		_id: optional
+		name
+		email (unique)
+		phone number
+		street
+		city
+		state
+		country
+		zip code
+		Credit card name
+		credit card number
+		expiry date
+		ccv
+		items in card, if any
+		items in wishlist, if any
+
+Github Link: https://github.com/SUBHALISHA/Capstone-OnlineShopping.git
+			
+
+	
+	
