@@ -1,0 +1,84 @@
+
+<app-admin-header></app-admin-header>
+<div class="container">
+    <div id="admin-left" class="col-md-4">
+        <app-side-menu ></app-side-menu>
+    </div>
+    <div id="admin-right" class="col-md-8">
+        <form [formGroup]="addProductForm" (ngSubmit)="addProduct()" > 
+            <fieldset>
+                <legend>Add a Product</legend>
+                <div class="form-group">
+                    <label for="pid">Product ID<span class="imp">*</span></label>
+                    <input type="text" formControlName="pid" class="form-control" placeholder="P101">
+                    <div class="alert alert-danger" *ngIf="pid.touched && pid.invalid">
+                        <p *ngIf="pid.errors.required">Product ID is mandatory</p>
+                        <p *ngIf="pid.errors.pattern">Invalid Product ID(P101)</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pname">Product Name<span class="imp">*</span></label>
+                    <input type="text" formControlName="pname" class="form-control" placeholder="iphone">
+                    <div class="alert alert-danger" *ngIf="pname.touched && pname.invalid">
+                        <p *ngIf="pname.errors.required">Product name is mandatory</p>
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="brand">Brand<span class="imp">*</span></label>
+                    <input type="text" formControlName="brand" class="form-control" placeholder="Apple">
+                    <div class="alert alert-danger" *ngIf="brand.touched && brand.invalid">
+                        <p *ngIf="brand.errors.required">Brand is mandatory</p>
+                        <p *ngIf="brand.errors.pattern">Brand should have only characters</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category<span class="imp">*</span></label>
+                    <select formControlName="category" class="form-control" placeholder="">
+                        <option  selected disabled>Select One</option>
+                        <option *ngFor="let c of categories" [value]="c.name">{{c.name}}</option>
+                    </select>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="price">Price($)<span class="imp">*</span></label>
+                    <input type="number" formControlName="price" class="form-control" min="1" step="0.01" placeholder="1000">
+                    <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                        <p *ngIf="price.errors.required">Enter Price</p>
+                        <p *ngIf="price.errors.pattern">Price should have only numbers</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity<span class="imp">*</span></label>
+                    <input type="number" formControlName="quantity" class="form-control" min="1" step="1" placeholder="5">
+                    <div class="alert alert-danger" *ngIf="quantity.touched && quantity.invalid">
+                        <p *ngIf="quantity.errors.required">Enter Quantity</p>
+                        <p *ngIf="quantity.errors.pattern">Quantity should have only numbers</p>
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Add Product</button> 
+                    
+                </div>
+            </fieldset>
+            </form>
+
+            <div ng-If="isSuccess" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Product Update</h5>
+
+                    </div>
+                    <div class="modal-body">
+                     {{msg}}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+
+    <div class="container bg-light col-md-9 "id="newuser">
+        <div class="registerForm " >
+            <form [formGroup]="registerForm" (ngSubmit)="register()" > 
+                <h1>Registration Form</h1>
+                <fieldset> 
+                    <legend>Personal Information</legend>
+                    <div class="form-group">
+                        <label for="name">Name<span class="imp">*</span></label>
+                        <input type="name" formControlName="name" class="form-control" placeholder="Joe">
+                        <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                            <p *ngIf="name.errors.required">Name is mandatory</p>
+                            <p *ngIf="name.errors.minlength">Name must be more than 2 characters</p>
+                            <p *ngIf="name.errors.pattern">Name should contain only characters</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email<span class="imp">*</span></label>
+                        <input type="email" formControlName="email" class="form-control" placeholder="name@mail.com">
+                        <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+                            <p *ngIf="email.errors.required">Email is mandatory</p>
+                            <p *ngIf="email.errors.pattern">Please match email pattern</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password<span class="imp">*</span></label>
+                        <input type="password" formControlName="password" class="form-control" placeholder="Password">
+                        <div class="alert alert-danger" *ngIf="password.touched && password.invalid">
+                            <p *ngIf="password.errors.required">Password is mandatory</p>
+                            <p *ngIf="password.errors.minlength ">Password should be atleast 6 characters</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number<span class="imp">*</span></label>
+                        <input type="text" formControlName="phone" class="form-control" placeholder="xxx-xxx-xxxx" mask="xxx-xxx-xxxx">
+                        <div class="alert alert-danger" *ngIf="phone.touched && phone.invalid">
+                            <p *ngIf="phone.errors.required">Phone Number is required</p>
+                            <p *ngIf="phone.errors.minlength || phone.errors.minlength || phone.errors.pattern">Enter Valid Phone number</p>
+                        </div>
+                    </div>
+              
+                    <legend>Residential Information</legend>
+                    <div class="form-group">
+                        <label for="street">Street<span class="imp">*</span></label>
+                        <input type="text" formControlName="street" class="form-control" placeholder="william street">
+                        <div class="alert alert-danger" *ngIf="street.touched && street.invalid">
+                            <p *ngIf="street.errors.required">Street Name is mandatory</p>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City<span class="imp">*</span></label>
+                        <input type="text" formControlName="city" class="form-control" placeholder="Newark">
+                        <div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+                            <p *ngIf="city.errors.required">City Name is mandatory</p>
+                            <p *ngIf="city.errors.pattern">City Name should contain only characters</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State<span class="imp">*</span></label>
+                        <input type="text" formControlName="state" class="form-control" placeholder="NJ">
+                        <div class="alert alert-danger" *ngIf="state.touched && state.invalid">
+                            <p *ngIf="state.errors.required">State Name is mandatory</p>
+                            <p *ngIf="state.errors.pattern">State Name should contain only characters</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country<span class="imp">*</span></label>
+                        <input type="text" formControlName="country" class="form-control" placeholder="USA">
+                        <div class="alert alert-danger" *ngIf="country.touched && country.invalid">
+                            <p *ngIf="country.errors.required">Country Name is mandatory</p>
+                            <p *ngIf="country.errors.pattern">Country Name should contain only characters</p>
+                        </div>
+                    </div>
+                    
+                    
+
+                    <div class="form-group">
+                        <label for="zip">Zip Code<span class="imp">*</span></label>
+                        <input type="number" formControlName="zip" class="form-control">
+                        <div class="alert alert-danger" *ngIf="zip.touched && zip.invalid">
+                            <p *ngIf="zip.errors.required">Zip Code is mandatory</p>
+                            <p *ngIf="zip.errors.pattern">Enter a valid Zip Code</p>
+                        </div>
+                    </div>
+                    <legend>Payment Details</legend>
+                    <div class="form-group">
+                        <label for="cname">Name on the card<span class="imp">*</span></label>
+                        <input type="text" formControlName="cname" class="form-control">
+                        <div class="alert alert-danger" *ngIf="cname.touched && cname.invalid">
+                            <p *ngIf="cname.errors.required"> Credit card name is mandatory</p>
+                            <p *ngIf="cname.errors.minlength">Credit card name must be more than 2 characters</p>
+                            <p *ngIf="cname.errors.pattern">Credit card name should contain only characters</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card_no">Card Number<span class="imp">*</span></label>
+                        <input type="number" formControlName="card_no" class="form-control">
+                        <div class="alert alert-danger" *ngIf="card_no.touched && card_no.invalid">
+                            <p *ngIf="card_no.errors.required"> Credit card number is mandatory</p>
+                            <p *ngIf="card_no.errors.pattern">Enter a Valid Credit card number</p>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Expiry Date<span class="imp">*</span></label>
+                        <input type="text"  formControlName="date" class="form-control"  placeholder="MM-YYYY">
+                        <div class="alert alert-danger" *ngIf="date.touched && date.invalid">
+                            <p *ngIf="date.errors.required"> Expiration Date is mandatory</p>
+                            <p *ngIf="date.errors.pattern">Enter a Valid Expiry date</p>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ccv">CCV<span class="imp">*</span></label>
+                        <input type="password" formControlName="ccv" class="form-control">
+                        <div class="alert alert-danger" *ngIf="ccv.touched && ccv.invalid">
+                            <p *ngIf="ccv.errors.required"> CCV number is mandatory</p>
+                            <p *ngIf="ccv.errors.pattern">Enter a Valid CCV number</p>  
+                        </div>
+                    </div>
+                </fieldset>
+
+
+
+                
+                <div class="form-group">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal" >Register</button> &nbsp;
+                    <button class="btn btn-info" (click)=login()>Back to Login</button> 
+                </div>
+                </form>
+                <div ng-If="isSuccess" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Congratulations!!!</h5>
+                        </div>
+                        <div class="modal-body">
+                         Registration Successful!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)=login()>Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+
+    </div>
+
